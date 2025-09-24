@@ -2,15 +2,29 @@ import { useState } from 'react';
 import './App.css'
 
 function App() {
-  let [counter, SetCounter] = useState(5);
+  const [counter, SetCounter] = useState(15);
 
   const addValue = () => {
-    console.log("clicked", counter);
-    SetCounter(counter + 1);
+    // counter = counter + 1; // wrong way to update state
+    //SetCounter(counter + 1);
+    //SetCounter(counter + 1);
+    //SetCounter(counter + 1);
+    //SetCounter(counter + 1);
+    // this may not work as expected due to state batching
+    // Correct way to update state based on previous state jaise ki counter pehle 15 tha to 16,17,18,19 hoga
+
+
+    SetCounter(prevCounter => prevCounter + 1);
+    SetCounter(prevCounter => prevCounter + 1);
+    SetCounter(prevCounter => prevCounter + 1);
+    SetCounter(prevCounter => prevCounter + 1);
+    
+    if(counter >= 20){
+      SetCounter(20);
+    }
   }
 
   const removeValue = () => {
-    console.log("clicked", counter);
     SetCounter(counter - 1);
     if(counter <= 0){
       SetCounter(0);
