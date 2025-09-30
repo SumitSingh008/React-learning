@@ -7,7 +7,8 @@ function App() {
   const [Password, setPassword] = useState('')
 
 
-  //useRef = useRef ek hook hai jo kisi value ko store krne ke liye use hota h bina component ko re-render kiye.
+  //useRef hook = useRef ek hook hai jo kisi value ko store krne ke liye use hota h bina component ko re-render kiye.
+  const passwordRef = useRef(null)
 
   // method for generating password
   const PasswordGenerator = useCallback(() => {
@@ -24,6 +25,11 @@ function App() {
     setPassword(pass)
   }, [length, numberAllowed, charAllowed, setPassword])
 
+  const copyPasswordToClipboard = useCallback(() => {
+    passwordRef.current?.select();
+    passwordRef.current?.setSelectionRange(0, 999); // For mobile devices
+    window.navigator.clipboard.writeText(Password)
+  }, [Password])
 
   useEffect(() => {
     PasswordGenerator()
@@ -38,9 +44,11 @@ function App() {
           className="outline-none w-full py-1 px-3 bg-white text-gray-700"
           value={Password} 
           placeholder='password' 
-          readOnly />
+          readOnly
+          ref={passwordRef} />
 
-          <button className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0" onClick={PasswordGenerator}>Copy</button>
+          <button onClick={copyPasswordToClipboard} className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-2 
+         focus:ring-blue-400 transition">Copy</button>
         </div>
 
         <div className="flex text-sm gap-x-2">
