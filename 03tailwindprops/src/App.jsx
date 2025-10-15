@@ -4,6 +4,9 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Card from './components/card'
 
+// props - props in react are short for 'properties' they are used to pass data from one component to another- usually from a parent component to a child component.
+// props makes component reusable and dynamic. they are immutable , meaning their values can't be changed inside the child component.
+
 function App() {
   const [count, setCount] = useState(0)
   let myObj = {
